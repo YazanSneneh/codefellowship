@@ -1,21 +1,27 @@
-package com.codefellowship.codefellowship;
+package com.codefellowship.codefellowship.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.Id;
 
 @Entity
 public class ApplicationUser implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String password;
     @Column(unique = true)
     private String username;
     private String firstName, lastName, dateOfBirth, bio;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> post;
 
     public ApplicationUser( String password, String username, String firstName, String lastName, String dateOfBirth, String bio) {
         this.password = password;
@@ -25,9 +31,14 @@ public class ApplicationUser implements UserDetails {
         this.dateOfBirth = dateOfBirth;
         this.bio = bio;
     }
+    public ApplicationUser() {}
 
-    public ApplicationUser() {
+    public List<Post> getPosts() {
+        return post;
+    }
 
+    public void setPosts(List<Post> posts) {
+        this.post = posts;
     }
 
     @Override

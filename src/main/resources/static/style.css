@@ -1,0 +1,66 @@
+body{
+background-color:#393e46;
+color:#eeeeee;
+text-align:center;
+margin:0;
+}
+h1,h2,h3,h4,h5,h6{
+  margin-top:0;
+}
+#error_heading{
+margin-top:20%;
+}
+header{
+padding-top:5%;
+background-color:#00adb5;
+}
+nav{
+padding: 2%;
+}
+a{
+  color:#eeeeee;
+  text-decoration: none;
+  margin: 10px;
+}
+a:hover{
+color:#eeeeee;
+  text-decoration: none;
+}
+
+img{
+width:250px;
+height:250px;
+}
+form {
+   margin:5%;
+   background-color: 00adb5;
+   boder: 1px solid #eeeeee;
+}
+
+form input{
+  width:50%;
+  height: 35px;
+margin: 10px;
+}
+label{
+margin-right:10px;
+}
+input[type=submit]{
+ font-size:17px;
+ width 20%;
+ color: #393e46;
+}
+
+#profile_image{
+padding-top: 2%;
+}
+#posts{
+text-align:left;
+}
+
+#posts article{
+ border: 1px solid #eeeeee;
+ margin: 1%;
+ font-size:18px;
+ padding: 5px 10px;
+}

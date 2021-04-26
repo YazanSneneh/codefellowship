@@ -5,9 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profile</title>
+    <title>Home page</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>User profile</h1>
+<header>
+    <h1>Welcome <span th:text="${loggedUser.username}" ></span> </h1>
+    <nav>
+        <a href="/profile">profile</a>
+    </nav>
+</header>
+
 </body>
 </html>
