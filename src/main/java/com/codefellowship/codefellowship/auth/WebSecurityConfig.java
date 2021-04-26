@@ -1,4 +1,4 @@
- package com.codefellowship.codefellowship;
+ package com.codefellowship.codefellowship.auth;
 
 //import com.mycode.securedemo.appuser.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title >Profile</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h2> Welcome <span th:text="${user.username}"></span> </h2>
+    <nav>
+        <a href="/loggedInUser">Home Page</a>
+        <a href="/profile">profile</a>
+    </nav>
+</header>
+<div>
+    <div id="profile_image">
+        <img src="https://cambodiaict.net/wp-content/uploads/2019/12/computer-icons-user-profile-google-account-photos-icon-account.jpg" alt="">
+    </div>
+
+</div>
+
+<section id="posts">
+
+    <article th:each="p : ${user.getPosts()}">
+        <h5 th:text="${user.username}"> </h5>
+       <p th:text="${p.getBody()}"> </p>
+        <p th:text="${p.getCreatedAt()}"> </p>
+    </article>
+
+</section>
+
+<section>
+    <h3>Add new Post</h3>
+
+    <form method="POST" action="/createpost" >
+        <label for="body">Write your post here</label> <br>
+        <textarea name="body" id="body"cols="30" rows="10"></textarea> <br>
+
+        <input type="submit" value="Publish"> <br>
+    </form>
+</section>
+
+</body>
+</html>

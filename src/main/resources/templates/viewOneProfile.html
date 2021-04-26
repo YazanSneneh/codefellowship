@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title >Document</title>
+
+     <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <h1><h1>User : <span th:text="${logged.username}"> </span> </h1></h1>
+    <nav>
+        <a href="/">Home Page</a>
+        <a href="/profile">profile</a>
+    </nav>
+</header>
+
+<img src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg" alt="">
+<h3> First Name : <span th:text="${user.username}"></span> </h3>
+<h3> Last  Name : <span th:text="${user.firstName}"></span></h3>
+<h3> Last  Name : <span th:text="${user.lastName}"></span></h3>
+<h3> Date Of Birth : <span th:text="${user.dateOfBirth}"></span></h3>
+<h3>bio : <span th:text="${user.bio}"></span> </h3>
+
+</body>
+</html>
