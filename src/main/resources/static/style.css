@@ -64,3 +64,9 @@ text-align:left;
  font-size:18px;
  padding: 5px 10px;
 }
+.feedPosts{
+ border: 1px solid #eeeeee;
+ margin: 1%;
+ font-size:18px;
+ padding: 5px 10px;
+}

@@ -10,14 +10,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ControllerApplicationUser {
@@ -63,7 +63,12 @@ public class ControllerApplicationUser {
     }
     @GetMapping("/loggedInUser")
     public String getLoggedInHome(Principal p, Model m){
-        m.addAttribute("loggedUser", ((UsernamePasswordAuthenticationToken)p).getPrincipal());
+
+        List<ApplicationUser> list = new ArrayList<>();
+
+        applicationUserRepository.findAll().forEach(list::add);
+         m.addAttribute("users",list);
+          m.addAttribute("loggedUser", ((UsernamePasswordAuthenticationToken)p).getPrincipal());
         return "loggedInHome.html";
     }
 
@@ -90,4 +95,69 @@ public class ControllerApplicationUser {
         model.addAttribute("user", applicationUserRepository.findById(user.getId()).get());
         return "profile.html";
     }
+
+    @PutMapping("/profile/{id}")
+    public RedirectView updateUser(@PathVariable("id") int id,
+                                   @RequestParam(value = "username")String username,
+                                   @RequestParam(value = "password")String password,
+                                   @RequestParam(value = "firstName")String fname,
+                                   @RequestParam(value = "lastName")String lname,
+                                   @RequestParam(value = "dateOfBirth")String date,
+                                   @RequestParam(value = "bio")String bio,Model model, Principal principal){
+       ApplicationUser user =  applicationUserRepository.findByUsername(username);
+        System.out.println(user.getUsername());
+        return new RedirectView("/profile");
+    }
+
+    @PostMapping("/feed")
+    public RedirectView addNewFollow(Principal p, @RequestParam(value ="id") Integer id){
+        ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        ApplicationUser friend = applicationUserRepository.findById(id).get();
+
+        if(!user.getFriendOf().contains(friend) ){
+            user.addFriend(friend);
+            applicationUserRepository.save(user);
+        }
+
+
+        return new RedirectView("/feed");
+    }
+
+
+    @GetMapping("/feed")
+    public String feedPage(Principal p, Model m){
+        ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+
+        m.addAttribute("user", user);
+        return "feed.html";
+    }
+
 }
+
+
+    /*
+    <section>
+    <h3>Update your profile</h3>
+    <form  th:if="${isAllowedToEdit == true}" th:action="'/profile/'+${user.id} +'?_method=PUT'" method="POST">
+        <label for="username">User name</label>
+        <input id="username" name="username" type="text" th:value="${user.username}"> <br>
+
+        <label for="password">password</label>
+        <input id="password" name="password" type="text" th:value="${user.password}"> <br>
+
+        <label for="firstName">first Name</label>
+        <input id="firstName" name="firstName" type="text" th:value="${user.username}"> <br>
+
+        <label for="lastName">last Name</label>
+        <input id="lastName" name="lastName" type="text" th:value="${user.lastName}"> <br>
+
+        <label for="dateOfBirth">date Of Birth</label>
+        <input id="dateOfBirth" name="dateOfBirth" type="date" th:value="${user.dateOfBirth}"> <br>
+
+        <label for="bio">bio</label>
+        <input id="bio" name="bio" type="text" th:value="${user.bio}"> <br>
+
+        <button type="submit">Update</button>
+    </form>
+</section>
+    */

@@ -7,15 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home page</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+
 </head>
 <body>
 <header>
     <h1>Welcome <span th:text="${loggedUser.username}" ></span> </h1>
     <nav>
+        <a href="/">Home Page</a>
         <a href="/profile">profile</a>
+        <a href="/feed">feed</a>
     </nav>
 </header>
+ <section>
+     <h2>Users List</h2>
 
+     <section th:each="${user : users}">
+
+         <article>
+             <h2 th:text="${user.username}"> </h2>
+             <p><a th:href="@{'/profile/' + ${user.id}}">Visit User page</a></p>
+         </article>
+
+     </section>
+ </section>
 </body>
 </html>

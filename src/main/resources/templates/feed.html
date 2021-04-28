@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Feed</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<h3>Friends Feed </h3>
+<h5 th:text="${user.username}"> </h5>
+
+<section>
+    <article  th:each="u : ${user.friends}">
+          <div class="feedPosts" th:if="${u.username} != ${user.username}">
+              <h5 th:text="${u.username}"> </h5>
+
+              <article th:each="p : ${u.getPosts()}">
+                  <p th:text="${p.getBody()}"> </p>
+                  <p th:text="${p.getCreatedAt()}"> </p>
+                  <p><a th:href="@{'/profile/' + ${u.id}}">Visit publisher page</a></p>
+              </article>
+          </div>
+    </article>
+</section>
+</body>
+</html>

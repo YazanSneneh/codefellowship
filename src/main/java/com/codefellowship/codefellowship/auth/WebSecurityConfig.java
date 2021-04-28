@@ -1,6 +1,5 @@
  package com.codefellowship.codefellowship.auth;
 
-//import com.mycode.securedemo.appuser.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,12 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/signup").permitAll()
+                .antMatchers("/signup","/**.css").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/profile")
                 .and()
                 .logout();
     }

@@ -20,10 +20,40 @@ public class ApplicationUser implements UserDetails {
     private String username;
     private String firstName, lastName, dateOfBirth, bio;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Post> post;
 
-    public ApplicationUser( String password, String username, String firstName, String lastName, String dateOfBirth, String bio) {
+    @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinTable(name="feeds",
+            joinColumns=@JoinColumn(name="personId"),
+            inverseJoinColumns=@JoinColumn(name="friendId")
+    )
+    private List<ApplicationUser> friends;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="feeds",
+            joinColumns=@JoinColumn(name="friendId"),
+            inverseJoinColumns=@JoinColumn(name="personId")
+    )
+    private List<ApplicationUser> friendOf;
+
+    public List<ApplicationUser> getFriends() {
+        return friends;
+    }
+
+    public void addFriend(ApplicationUser friend) {
+        this.friends.add(friend);
+    }
+
+    public List<ApplicationUser> getFriendOf() {
+        return friendOf;
+    }
+
+    public void addFriendOf(ApplicationUser friendOf) {
+        this.friendOf.add(friendOf);
+    }
+
+    public ApplicationUser(String password, String username, String firstName, String lastName, String dateOfBirth, String bio) {
         this.password = password;
         this.username = username;
         this.firstName = firstName;
