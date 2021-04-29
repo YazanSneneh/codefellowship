@@ -5,7 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Id;
 
@@ -25,19 +27,19 @@ public class ApplicationUser implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinTable(name="feeds",
-            joinColumns=@JoinColumn(name="personId"),
-            inverseJoinColumns=@JoinColumn(name="friendId")
-    )
-    private List<ApplicationUser> friends;
-
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="feeds",
             joinColumns=@JoinColumn(name="friendId"),
             inverseJoinColumns=@JoinColumn(name="personId")
     )
-    private List<ApplicationUser> friendOf;
+    private Set<ApplicationUser> friends = new HashSet<>();
 
-    public List<ApplicationUser> getFriends() {
+    @ManyToMany
+    @JoinTable(name="feeds",
+            joinColumns=@JoinColumn(name="personId"),
+            inverseJoinColumns=@JoinColumn(name="friendId")
+    )
+    private Set<ApplicationUser> friendOf = new HashSet<>();
+
+    public Set<ApplicationUser> getFriends() {
         return friends;
     }
 
@@ -45,7 +47,7 @@ public class ApplicationUser implements UserDetails {
         this.friends.add(friend);
     }
 
-    public List<ApplicationUser> getFriendOf() {
+    public Set<ApplicationUser> getFriendOf() {
         return friendOf;
     }
 

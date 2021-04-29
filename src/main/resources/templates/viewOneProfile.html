@@ -1,44 +1,33 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title >Document</title>
-
-     <link rel="stylesheet" href="/style.css">
-</head>
+<th:head th:include="fragments/general :: head"></th:head>
 <body>
 <header>
-    <h1><h1>User : <span th:text="${logged.username}"> </span> </h1></h1>
-    <nav>
-        <a href="/">Home Page</a>
-        <a href="/profile">profile</a>
-        <a href="/feed">feed</a>
-    </nav>
+    <h2>Welcome <span th:text="${user.username}" ></span> </h2>
+    <th:nav th:include="fragments/general :: nav"></th:nav>
 </header>
+<main>
+<article id="user_profile">
+    <img src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg" alt="">
+    <h3> First Name : <span th:text="${user.username}"></span> </h3>
+    <h3> Last  Name : <span th:text="${user.firstName}"></span></h3>
+    <h3> Last  Name : <span th:text="${user.lastName}"></span></h3>
+    <h3> Date Of Birth : <span th:text="${user.dateOfBirth}"></span></h3>
+    <h3>bio : <span th:text="${user.bio}"></span> </h3>
+</article>
 
-<img src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg" alt="">
-<h3> First Name : <span th:text="${user.username}"></span> </h3>
-<h3> Last  Name : <span th:text="${user.firstName}"></span></h3>
-<h3> Last  Name : <span th:text="${user.lastName}"></span></h3>
-<h3> Date Of Birth : <span th:text="${user.dateOfBirth}"></span></h3>
-<h3>bio : <span th:text="${user.bio}"></span> </h3>
-
-<form action="/feed" method="Post">
+<form th:if="${logged.id != user.getId()}" action="/feed" method="Post">
     <input type="number" name="id" th:value="${user.getId()}" hidden>
     <button type="submit">Follow</button>
 </form>
-<section id="posts">
-
-    <article th:each="p : ${user.getPosts()}">
+<section id="add_post">
+    <article  th:each="p : ${user.getPosts()}">
         <h5 th:text="${user.username}"> </h5>
         <p th:text="${p.getBody()}"> </p>
-        <p th:text="${p.getCreatedAt()}"> </p>
+        <h6 th:text="${p.getCreatedAt()}"> </h6>
     </article>
-
-
 </section>
+</main>
+<th:footer th:include="fragments/general :: footer"></th:footer>
 </body>
 </html>

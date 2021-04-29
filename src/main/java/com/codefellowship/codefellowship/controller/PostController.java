@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.security.Timestamp;
+
 import java.util.Date;
 
 @Controller

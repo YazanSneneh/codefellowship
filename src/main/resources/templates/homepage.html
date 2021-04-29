@@ -1,17 +1,9 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home page</title>
-
-    <link rel="stylesheet" href="style.css">
-</head>
+<th:head th:include="fragments/general :: head"></th:head>
 <body>
  <header>
-     <h1>Welcome to my Home Page</h1>
+     <h1>Welcome to codefellowship</h1>
      <nav>
          <a href="/signup">Sign up</a>
          <a href="/login">Login</a>
@@ -19,5 +11,18 @@
      </nav>
  </header>
 
+<main>
+    <article>
+        <p>
+            CodeFellowship that allows people learning to code to connect with each other and support
+            each other on their coding journeys.
+        </p>
+    </article>
+    
+    <section id="homepage_image">
+        <img src="https://www.techrepublic.com/a/hub/i/r/2020/06/24/70669a61-e440-43f6-b1e4-dc64e72f165b/resize/1200x/cfcfef13122dc582489a57e908670790/istock-1197640540.jpg" alt="">
+    </section>
+</main>
+ <th:footer th:include="fragments/general :: footer"></th:footer>
 </body>
 </html>

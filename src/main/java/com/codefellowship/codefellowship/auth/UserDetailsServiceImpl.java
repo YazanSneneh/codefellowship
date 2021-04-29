@@ -23,7 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             System.out.println("User not found");
             throw new UsernameNotFoundException("User "+username+" does not exist");
         }
-        System.out.println("User "+ username + " found");
         return applicationUser;
     }
 }

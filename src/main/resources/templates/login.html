@@ -1,14 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-
-    <link rel="stylesheet" href="style.css">
-</head>
+<th:head th:include="fragments/general :: head"></th:head>
 <body>
 <header>
     <h1>Welcome Back </h1>
@@ -18,15 +10,21 @@
         <a href="/profile">profile</a>
     </nav>
 </header>
-<form action="/login" method='POST'>
-         <label for="user"> User:</label> <br>
-          <input id='user' type="text" name='username' value=''> <br>
+<main>
+<section id="form">
+    <form action="/login" method='POST'>
+        <label for="user"> User:</label> <br>
+        <input id='user' type="text" name='username' value=''> <br>
 
-           <label for="password"> password:</label> <br>
-            <input id='password' type="text" name='password' value=''> <br>
+        <label for="password"> password:</label> <br>
+        <input id='password' type="text" name='password' value=''> <br>
 
-    <input name="submit" type="submit" value="submit" />
+        <input name="submit" type="submit" value="submit" />
 
-</form>
+    </form>
+</section>
+
+</main>
+<th:footer th:include="fragments/general :: footer"></th:footer>
 </body>
 </html>

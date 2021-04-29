@@ -1,23 +1,19 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Feed</title>
-
-    <link rel="stylesheet" href="/style.css">
-</head>
+<th:head th:include="fragments/general :: head"></th:head>
 <body>
 
-<h3>Friends Feed </h3>
-<h5 th:text="${user.username}"> </h5>
-
-<section>
+<header>
+    <h2>Welcome <span th:text="${user.username}" ></span> </h2>
+    <th:nav th:include="fragments/general :: nav"></th:nav>
+</header>
+<main>
+<h1>Friends Feed </h1>
+<section id="add_post">
     <article  th:each="u : ${user.friends}">
           <div class="feedPosts" th:if="${u.username} != ${user.username}">
               <h5 th:text="${u.username}"> </h5>
+              <img src="https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg">
 
               <article th:each="p : ${u.getPosts()}">
                   <p th:text="${p.getBody()}"> </p>
@@ -27,5 +23,7 @@
           </div>
     </article>
 </section>
+</main>
+<th:footer th:include="fragments/general :: footer"></th:footer>
 </body>
 </html>

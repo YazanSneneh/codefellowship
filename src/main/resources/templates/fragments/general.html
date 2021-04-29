@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title >CodeFellowShip</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav th:fragment="nav">
+    <a href="/loggedInUser">Home Page</a>
+    <a href="/profile">profile</a>
+    <a href="/feed">feed</a>
+</nav>
+
+<footer th:fragment="footer" >
+    <p>
+        CodeFellowShip is an educational website for programmers to interact, learn and have fun
+    </p>
+    <p>
+        Copyright <span>&#169;</span> 2021
+    </p>
+</footer>
+</body>
+</html>

@@ -1,18 +1,11 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Error !!</title>
-
-    <link rel="stylesheet" href="/style.css">
-</head>
+<th:head th:include="fragments/general :: head"></th:head>
 <body>
 
-    <h1 id="error_heading">Something went wrong, please make sure you are Logged in.</h1>
-
+    <main id="error">
+        <h1 id="error_heading">Something went wrong back to <a href="/"> Home Page</a> </h1>
+    </main>
 
 </body>
 </html>

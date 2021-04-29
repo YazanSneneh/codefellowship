@@ -28,8 +28,8 @@ public class ControllerApplicationUser {
      @Autowired
      PasswordEncoder passwordEncoder;;
 
-    @Autowired
-    PostRepository postRepository;
+     @Autowired
+     PostRepository postRepository;
 
 
     @GetMapping("/signup")
@@ -48,10 +48,9 @@ public class ControllerApplicationUser {
                                    @RequestParam(value = "dateOfBirth")String date,
                                    @RequestParam(value = "bio")String bio ){
 
-       // encode password before adding it to database
+       // encrypt password before adding it to database
         String eyncPass = passwordEncoder.encode(password);
         ApplicationUser user = new ApplicationUser( eyncPass,username,fname,lname,date,bio);
-
         applicationUserRepository.save(user);
 
         // this code when i sign up, it will redirect user to profile directly.
@@ -66,7 +65,8 @@ public class ControllerApplicationUser {
 
         List<ApplicationUser> list = new ArrayList<>();
 
-        applicationUserRepository.findAll().forEach(list::add);
+        applicationUserRepository.findAll().forEach(applicationUser -> list.add(applicationUser));
+
          m.addAttribute("users",list);
           m.addAttribute("loggedUser", ((UsernamePasswordAuthenticationToken)p).getPrincipal());
         return "loggedInHome.html";
@@ -96,44 +96,52 @@ public class ControllerApplicationUser {
         return "profile.html";
     }
 
-    @PutMapping("/profile/{id}")
-    public RedirectView updateUser(@PathVariable("id") int id,
-                                   @RequestParam(value = "username")String username,
-                                   @RequestParam(value = "password")String password,
-                                   @RequestParam(value = "firstName")String fname,
-                                   @RequestParam(value = "lastName")String lname,
-                                   @RequestParam(value = "dateOfBirth")String date,
-                                   @RequestParam(value = "bio")String bio,Model model, Principal principal){
-       ApplicationUser user =  applicationUserRepository.findByUsername(username);
-        System.out.println(user.getUsername());
-        return new RedirectView("/profile");
-    }
+//    @PutMapping("/profile/{id}")
+//    public RedirectView updateUser(@PathVariable("id") int id,
+//                                   @RequestParam(value = "username")String username,
+//                                   @RequestParam(value = "password")String password,
+//                                   @RequestParam(value = "firstName")String fname,
+//                                   @RequestParam(value = "lastName")String lname,
+//                                   @RequestParam(value = "dateOfBirth")String date,
+//                                   @RequestParam(value = "bio")String bio,Model model, Principal principal){
+//          String currentUser = principal.getName();
+//          ApplicationUser loggedUser = applicationUserRepository.findByUsername(currentUser);
+//        if(loggedUser.getId() == id){
+//            loggedUser.setUsername(username);
+//            String eyncPassword = passwordEncoder.encode(password);
+//            loggedUser.setPassword(eyncPassword);
+//            loggedUser.setFirstName(fname);
+//            loggedUser.setLastName(lname);
+//            loggedUser.setDateOfBirth(date);
+//            loggedUser.setBio(bio);
+//            applicationUserRepository.save(loggedUser);
+//        }
+////        System.out.println(user.getUsername());
+////        th:if="${isAllowedToEdit == true}"
+//        return new RedirectView("/profile");
+//    }
 
     @PostMapping("/feed")
     public RedirectView addNewFollow(Principal p, @RequestParam(value ="id") Integer id){
         ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
         ApplicationUser friend = applicationUserRepository.findById(id).get();
 
-        if(!user.getFriendOf().contains(friend) ){
+        if(!user.getFriends().contains(friend)){
             user.addFriend(friend);
             applicationUserRepository.save(user);
+            return new RedirectView("/feed");
+        }else{
+            return new RedirectView("/loggedInUser");
         }
-
-
-        return new RedirectView("/feed");
     }
-
 
     @GetMapping("/feed")
     public String feedPage(Principal p, Model m){
         ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
-
         m.addAttribute("user", user);
         return "feed.html";
     }
-
 }
-
 
     /*
     <section>
